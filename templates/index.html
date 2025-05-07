@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tesla Stock Price Prediction</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header class="text-center my-4">
+            <h1>Tesla Stock Price Prediction</h1>
+            <p class="lead">LSTM-based Deep Learning Model</p>
+        </header>
+
+        <div id="training-status" class="status"></div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card mb-4">
+                    <div class="card-header bg-primary text-white">
+                        <h2 class="h5 mb-0">1. Upload Dataset</h2>
+                    </div>
+                    <div class="card-body">
+                        <form id="uploadForm" enctype="multipart/form-data">
+                            <div class="mb-3">
+                                <label for="csvFile" class="form-label">Tesla Stock CSV File</label>
+                                <input type="file" class="form-control" id="csvFile" accept=".csv">
+                                <div class="form-text">Upload the Tesla stock price CSV dataset.</div>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Upload</button>
+                        </form>
+                        <div id="uploadStatus" class="alert mt-3 d-none"></div>
+                    </div>
+                </div>
+
+                <div class="card mb-4">
+                    <div class="card-header bg-success text-white">
+                        <h2 class="h5 mb-0">2. Train Model</h2>
+                    </div>
+                    <div class="card-body">
+                        <p>Train the LSTM model on the uploaded dataset.</p>
+                        <button id="trainButton" class="btn btn-success">Train Model</button>
+                        <div id="trainStatus" class="alert mt-3 d-none"></div>
+                        <div id="metrics" class="mt-3 d-none">
+                            <h3 class="h6">Model Metrics:</h3>
+                            <ul>
+                                <li>RMSE: <span id="rmse"></span></li>
+                                <li>MAE: <span id="mae"></span></li>
+                                <li>R²: <span id="r2"></span></li>
+                                <li>Accuracy: <span id="accuracy"></span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mb-4">
+                    <div class="card-header bg-info text-white">
+                        <h2 class="h5 mb-0">3. Predict Stock Prices</h2>
+                    </div>
+                    <div class="card-body">
+                        <p>Enter the last 10 days of stock data to predict future prices.</p>
+                        
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="inputTable">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Close Price</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- 10 rows for input data -->
+                                    <!-- Will be filled dynamically with JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="predictionDays" class="form-label">Number of days to predict</label>
+                            <input type="number" class="form-control" id="predictionDays" min="1" max="20" value="5">
+                            <div class="form-text">Enter a value between 1 and 20 days.</div>
+                        </div>
+                        
+                        <button id="predictButton" class="btn btn-info">Predict</button>
+                        <div id="predictStatus" class="alert mt-3 d-none"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-4" id="resultsSection" style="display: none;">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header bg-dark text-white">
+                        <h2 class="h5 mb-0">Prediction Results</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="text-center mb-4">
+                            <img id="predictionPlot" class="img-fluid" src="" alt="Prediction Plot">
+                        </div>
+                        
+                        <h3 class="h6 mb-3">Predicted Prices</h3>
+                        <div class="table-responsive">
+                            <table class="table table-striped" id="predictionTable">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Predicted Price</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Will be filled dynamically with JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-light text-center py-3 mt-5">
+        <p>Tesla Stock Price Prediction using LSTM &copy; 2025</p>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
