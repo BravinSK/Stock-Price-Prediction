@@ -84,7 +84,7 @@ def train_lstm_model():
     
     print("Training completed!")
     
-    # Plot training history
+    # Plot the training history
     plt.figure(figsize=(10, 6))
     plt.plot(history.history['loss'], label='Training Loss')
     plt.plot(history.history['val_loss'], label='Validation Loss')
