@@ -23,7 +23,7 @@ def predict_future_prices(input_data, num_days):
         # Scale the input data
         scaled_data = scaler.transform(close_prices)
         
-        # Prepare input sequence (last 10 days)
+        # Prepare the input sequence (last 10 days)
         sequence = scaled_data[-10:]  # Get last 10 days
         sequence = sequence.reshape(1, 10, 1)  # Reshape to (1, timesteps, features)
         
